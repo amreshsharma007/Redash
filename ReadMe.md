@@ -34,9 +34,17 @@ To set up Redash using Docker Compose:
    docker-compose up -d
    ```
 
-4. **Access Redash**:
+4. **Initialize Database**:
 
-   Once the services are running, access Redash by navigating to `http://localhost` in your web browser.
+   run the following command:
+
+   ```bash
+   docker compose run --rm redash create_db
+   ```
+
+5. **Access Redash**:
+
+   Once the services are running, access Redash by navigating to `http://localhost:5000` in your web browser.
 
 ## Configuration
 
