@@ -1,0 +1,31 @@
+services:
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: always
+
+  redash:
+    image: redash/redash:latest
+    network_mode: host
+    volumes:
+      - ./redash_data:/app/data
+    environment:
+      - REDASH_SECRET_KEY=your_secret_key
+      - REDASH_MAIL_FROM=your_email@example.com
+      - REDASH_MAIL_PASSWORD=your_email_password
+      - REDASH_SMTP_HOST=smtp.your_provider.com
+      - REDASH_SMTP_PORT=587
+      - REDASH_REDIS_HOST=localhost
+      - REDASH_REDIS_PORT=6379
+      - REDASH_DATABASE_URL=postgresql://root:12345678@localhost:5432/redash
+    depends_on:
+      - redis
+    restart: always
+
+volumes:
+  redis_data:
+  postgres_data:
+  redash_data:
